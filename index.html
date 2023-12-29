@@ -5,17 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://d3js.org/topojson.v3.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+  <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+  
     <title>Visualization Pattern</title>
 </head>
 <body>
 
     <div class="swiper mySwiper">
         <div class="swiper-wrapper">
+          
 
           <div class="swiper-slide">
+            
             <img src="logo.png" alt="Logo" id="logo">
+            
             <div id="graph1" ></div>
             <div id="graph2" ></div>
+            <div id="graph3">
+              <button id ="buttonAdd">Add</button>
+              <button id ="buttonRM">Remove</button>
+            </div>
+
+            <div class="slidecontainer">
+              <input type="range" min="2008" max="2021" class="slider" id="myRange" step ="1">
+            </div>
+
+            
+            
+            
            
           </div>
           <div class="swiper-slide">Slide 2</div>
@@ -30,6 +49,7 @@
       <script src="Slide_moving.js"></script>
       <script src="graph1.js"></script>
       <script src="graph2.js"></script>
+      <script src="graph3.js"></script>
 
 </body>
       

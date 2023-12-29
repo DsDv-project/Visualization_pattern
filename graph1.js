@@ -2,6 +2,7 @@ d3.csv("Data/netflix_titles_cleaned.csv").then(data => {
     // Calculate the ratio of TV Shows to Movies
     let tvShows = data.filter(d => d.type === "TV Show").length;
     let movies = data.filter(d => d.type === "Movie").length;
+    let total = tvShows + movies;
 
     let margin = {top: 70, right: 20, bottom: 20, left: 20};
 
@@ -11,8 +12,8 @@ d3.csv("Data/netflix_titles_cleaned.csv").then(data => {
 
     // Create the pie chart
     let dataset = [
-        {type: "TV Shows", value: tvShows},
-        {type: "Movies", value: movies}
+        {type: "TV Shows", value: tvShows, percentage: (tvShows / total * 100).toFixed(2)},
+        {type: "Movies", value: movies, percentage: (movies / total * 100).toFixed(2)}
     ];
     let pie = d3.pie().value(d => d.value)(dataset);
     let arc = d3.arc().innerRadius(100).outerRadius(Math.min(width, height) / 2); // Set innerRadius to create a donut chart
@@ -23,7 +24,7 @@ d3.csv("Data/netflix_titles_cleaned.csv").then(data => {
         .append("g")
         .attr("transform", `translate(${margin.left + width / 2}, ${margin.top + height / 2})`);
 
-    svg.selectAll("path")
+      svg.selectAll("path")
         .data(pie)
         .enter().append("path")
         .attr("fill", (d, i) => i === 0 ? "#FCA391" : "#D3283C")
