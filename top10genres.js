@@ -20,7 +20,7 @@ d3.csv("Data/netflix_titles_cleaned.csv", rowConverter).then(function(data) {
 
     var width = 550;
     var height = 350;
-    var margin = { top: 100, right: 70, bottom: 50, left: 400 };
+    var margin = { top: 50, right: 70, bottom: 50, left: 250 };
 
 
     // Convert 'counts' to an array of objects

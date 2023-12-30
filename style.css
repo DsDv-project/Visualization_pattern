@@ -113,8 +113,8 @@ body {
   position: fixed;
   width: 1180px;
   height: 450px;
-  top:1244px;
-  left:10%;
+  top:1600px;
+  left:7%;
   border-style: solid;
   border-color: white;
   border-top: 10%;
@@ -124,8 +124,8 @@ body {
   position: fixed;
   width: 700px;
   height: 450px;
-  top:900px;
-  left:2%;
+  top:1100px;
+  left:7%;
   border-style: solid;
   border-color: white;
   border-top: 10%;
@@ -135,8 +135,8 @@ body {
   position: fixed;
   width: 500px;
   height: 450px;
-  top:900px;
-  left:70%;
+  top:1100px;
+  left:45%;
   border-style: solid;
   border-color: white;
   border-top: 10%;
