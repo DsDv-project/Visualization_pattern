@@ -1,4 +1,4 @@
-var margin = {top: 40, right: 30, bottom: 20, left: 50},
+var margin = {top: 20, right: 30, bottom: 70, left: 50},
 width = 1400 - margin.left - margin.right,
 height = 300 - margin.top - margin.bottom;
 
@@ -216,6 +216,7 @@ function redrawGraph(data) {
     .style("fill", "white")
     .style("font-size", "20px")
     .text("Count");
+  
 
   
     

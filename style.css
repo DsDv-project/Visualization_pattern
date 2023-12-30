@@ -33,20 +33,48 @@ body {
   object-fit: cover;
   
 }
+.swiper-slide {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full height of the viewport */
+}
+
+.swiper-slide h3 {
+  margin: 0;
+  position: absolute;
+  top: 40px;
+  color: red;
+  font-size: 40px;
+}
 
 #logo{
   position: fixed;
   width: 200px;
-  top: 50px; 
+  
+  top: 30px; 
   left: 45%; 
   z-index: 9999;
 }
+
+
+#logo1{
+  position: fixed;
+  width: 200px;
+  height: 500px;
+  top: 2%; 
+  left: 2ric; 
+  z-index: 9999;
+}
+
+
 
 #graph1{
   position: fixed;
   width: 450px;
   height: 450px;
-  top: 50%;
+  top: 500px;
   left:70%;
   border-style: solid;
   border-color: white;
@@ -58,19 +86,24 @@ body {
   position: fixed;
   width: 1500px;
   height: 370px;
-  top:130px;
+  top:100px;
   left:15%;
   border-style: solid;
   border-color: white;
   border-top: 10%;
 }
+#graph2 p {
+  color: white; /* Dark gray text */
+  font-size: 24px;
+  font-weight: bold;
+}
 
 #graph3{
   position: fixed;
-  width: 1030px;
+  width: 1280px;
   height: 450px;
-  top:510px;
-  left:15%;
+  top:500px;
+  left:2%;
   border-style: solid;
   border-color: white;
   border-top: 10%;
@@ -93,8 +126,9 @@ body {
 .slidecontainer {
  
   position: absolute; 
+  top: 440px;
+  left: 300px; 
   
-  left: 10px; 
 
  
   width: 200px; 
@@ -102,6 +136,7 @@ body {
 
 .slider {
   width: 100%; 
+;
 }
 
 
