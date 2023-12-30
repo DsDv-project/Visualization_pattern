@@ -16,7 +16,7 @@ d3.csv("Data/netflix_titles_cleaned.csv").then(data => {
         {type: "Movies", value: movies, percentage: (movies / total * 100).toFixed(2)}
     ];
     let pie = d3.pie().value(d => d.value)(dataset);
-    let arc = d3.arc().innerRadius(100).outerRadius(Math.min(width, height) / 2); // Set innerRadius to create a donut chart
+    let arc = d3.arc().innerRadius(100).outerRadius(Math.min(width, height) / 2); 
 
     let svg = d3.select("#graph1").append("svg")
         .attr("width", width + margin.left + margin.right)
@@ -24,13 +24,46 @@ d3.csv("Data/netflix_titles_cleaned.csv").then(data => {
         .append("g")
         .attr("transform", `translate(${margin.left + width / 2}, ${margin.top + height / 2})`);
 
-      svg.selectAll("path")
-        .data(pie)
-        .enter().append("path")
-        .attr("fill", (d, i) => i === 0 ? "#FCA391" : "#D3283C")
-        .attr("d", arc)
-        .append("title") // Add tooltip
-        .text(d => `${d.data.type}: ${d.data.value}`);
+        let arcGenerator = d3.arc().innerRadius(100).outerRadius(Math.min(width, height) / 2);
+        let arcHover = d3.arc().innerRadius(100).outerRadius(Math.min(width, height) / 2 + 10); 
+
+        
+        
+        svg.selectAll("path")
+            .data(pie)
+            .enter().append("path")
+            .attr("fill", (d, i) => i === 0 ? "#FCA391" : "#D3283C")
+            .attr("d", arcGenerator)
+            .on("mouseover", function (event, d) {
+                d3.select(this)
+                    .transition()
+                    .attr("d", arcHover)
+                    .duration(200);
+        
+            
+                d3.select("#tooltip")
+                    
+                    .transition()
+                    .duration(100)
+                    .style("opacity", 1)
+                    .style("left", event.pageX + 5 + "px")
+                    .style("top", event.pageY + 5 + "px")
+                    .style("opacity", 1)
+                    .select("#value")
+                    .text(d.data.value);
+            })
+            .on("mouseout", function () {
+                d3.select(this)
+                    .transition()
+                    .attr("d", arcGenerator)
+                    .duration(500);
+        
+                d3.select("#tooltip")
+                    .style("opacity", 0);
+            })
+            .append("title")
+            .text(d => `${d.data.type}: ${d.data.value}`);
+    
 
     // Add title
     svg.append("text")
@@ -39,5 +72,7 @@ d3.csv("Data/netflix_titles_cleaned.csv").then(data => {
         .style("font-size", "1.5em")
         .style("fill", "red")
         .text("TV Shows vs Movies");
+
+        
 
 }).catch(console.error);
