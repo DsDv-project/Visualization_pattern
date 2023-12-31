@@ -108,6 +108,41 @@ body {
   border-color: white;
   border-top: 10%;
 }
+
+#graph4{
+  position: fixed;
+  width: 1180px;
+  height: 450px;
+  top:1244px;
+  left:10%;
+  border-style: solid;
+  border-color: white;
+  border-top: 10%;
+}
+
+#graph5{
+  position: fixed;
+  width: 700px;
+  height: 450px;
+  top:900px;
+  left:2%;
+  border-style: solid;
+  border-color: white;
+  border-top: 10%;
+}
+
+#piechart{
+  position: fixed;
+  width: 500px;
+  height: 450px;
+  top:900px;
+  left:70%;
+  border-style: solid;
+  border-color: white;
+  border-top: 10%;
+}
+
+
 #buttonAdd{
   color: black;
   position: absolute;
