@@ -1,7 +1,39 @@
 // Load the CSV file
 d3.csv("Data/netflix_titles_cleaned.csv").then(function(data) {
+
+    var select = d3.select("#countrySelect");
+
+    select.selectAll("option")
+           
+    var countries = ["Total",...new Set(data.map(d => d.principal_country))];
+
+
+    select.selectAll("option")
+        .data(countries)
+        .enter()
+        .append("option")
+        .text(d => d);
+
+    var margin = {top: 60, right: 30, bottom: 30, left: 70},
+        width = 560 - margin.left - margin.right,
+        height = 400 - margin.top - margin.bottom;
+
+    var svg = d3.select("#graph5").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", 
+              "translate(" + margin.left + "," + margin.top + ")");
+
+    function updategraph() {
+
+    svg.selectAll("*").remove();
+    var selectedCountry = d3.select("#countrySelect").property("value");
+
+    var filteredData = selectedCountry === "Total" ? data : data.filter(d => d.principal_country === selectedCountry);
+
     var counts = {};
-    data.forEach(function(d) {
+    filteredData.forEach(function(d) {
         var age = d.age_certification.trim();  // Remove leading and trailing spaces
         if (!counts[age]) {
             counts[age] = 0;
@@ -20,22 +52,12 @@ d3.csv("Data/netflix_titles_cleaned.csv").then(function(data) {
     });
     countsArray = countsArray.slice(0, 10);
 
-    var margin = {top: 60, right: 30, bottom: 30, left: 70},
-        width = 560 - margin.left - margin.right,
-        height = 400 - margin.top - margin.bottom;
-
     var x = d3.scaleBand()
         .range([0, width])
         .padding(0.2);
     var y = d3.scaleLinear()
         .range([height, 0]);
 
-    var svg = d3.select("#graph5").append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform", 
-              "translate(" + margin.left + "," + margin.top + ")");
 
     x.domain(countsArray.map(function(d) { return d.age; }));
     y.domain([0, d3.max(countsArray, function(d) { return d.count; })]);
@@ -85,4 +107,12 @@ d3.csv("Data/netflix_titles_cleaned.csv").then(function(data) {
         .style("font-size", "20px") 
          
         .text("Top 10 age certifications");
+
+
+    }
+
+    updategraph();
+    window.addEventListener("countryChanged", function() {
+        updategraph();
+    });
 });
