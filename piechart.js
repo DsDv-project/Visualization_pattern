@@ -97,10 +97,10 @@ d3.csv("Data/netflix_titles_cleaned.csv").then(function(data) {
         .style("visibility", "hidden")
         .style("color", "white")
         .style("font-size", "20px")
-        .style("background", "rgba(0, 0, 0, 0.7)") // semi-transparent black
-        .style("border", "1px solid white") // white border
-        .style("border-radius", "5px") // rounded corners
-        .style("padding", "10px") // space between text and border
+        .style("background", "rgba(0, 0, 0, 0.7)") 
+        .style("border", "1px solid white") 
+        .style("border-radius", "5px") 
+        .style("padding", "10px") 
         .text("a simple tooltip");
 
 

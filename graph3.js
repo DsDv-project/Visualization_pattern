@@ -1,6 +1,6 @@
 var rowConverter = function(d) {
     return {
-        country: String(d["country"]),
+        country: String(d["principal_country"]),
         title: String(d["title"])
     };
 };
@@ -62,8 +62,8 @@ d3.csv("Data/netflix_titles_cleaned.csv", rowConverter).then(function(data) {
 
     var svg = d3.select("#graph3")
         .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
+        .attr("width", 1000)
+        .attr("height", 380)
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 

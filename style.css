@@ -84,11 +84,23 @@ body {
   width: 450px;
   height: 450px;
   top: 500px;
-  left:70%;
+  left:2%;
   border-style: solid;
   border-color: white;
   border-top: 10%;
   
+}
+
+#countrySelects1 {
+  
+  position: fixed;
+  width: 150px;
+  height: 30px;
+  top: 450px; 
+  left: 2%; 
+  z-index: 9999;
+
+
 }
 
 #graph2{
@@ -107,12 +119,13 @@ body {
   font-weight: bold;
 }
 
+
 #graph3{
   position: fixed;
   width: 1280px;
   height: 450px;
   top:500px;
-  left:2%;
+  left:510px;
   border-style: solid;
   border-color: white;
   border-top: 10%;
@@ -162,18 +175,22 @@ body {
 
 }
 
+
+
+
+
 #buttonAdd{
   color: black;
   position: absolute;
   top: 10px;
-  left: 5%;
+  left: 3%;
   font-size: 20px;
 }
 #buttonRM{
   color: black;
   position: absolute;
   top: 10px;
-  left: 12%;
+  left: 8%;
   font-size: 20px;
 }
 

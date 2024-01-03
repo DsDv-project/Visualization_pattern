@@ -59,7 +59,7 @@ function(d){
   svg.selectAll(".domain")
       .attr("stroke", "white");
 
-  // Add the lines
+  
   svg.append("path")
     .datum(data)
     .attr("fill", "none")
