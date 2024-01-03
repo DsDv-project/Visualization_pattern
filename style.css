@@ -168,16 +168,12 @@ body {
   position: fixed;
   width: 250px;
   height: 30px;
-  top: 1300px; 
-  left: 600px; 
+  top: 1100px; 
+  left: 1380px; 
   z-index: 9999;
 
 
 }
-
-
-
-
 
 #buttonAdd{
   color: black;
@@ -250,16 +246,16 @@ body {
 #Addingbutton{
   color: black;
   position: absolute;
-  top: 1600px; 
-  left: 100px; 
+  top: 30px; 
+   
   left: 5%;
   font-size: 20px;
 }
 #Removebutton{
   color: black;
   position: absolute;
-  top: 1600px; 
-  left: 100px; 
+  top: 30px; 
+  
   left: 12%;
   font-size: 20px;
 }
