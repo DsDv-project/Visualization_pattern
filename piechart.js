@@ -1,42 +1,73 @@
 d3.csv("Data/netflix_titles_cleaned.csv").then(function(data) {
-    const counts = {
-        "Kids": 0,
-        "Older Kids": 0,
-        "Teens": 0,
-        "Adults": 0,
-    };
-    data.forEach(function(d) {
-        if (d.target_ages === "Kids") {
-            counts["Kids"] += 1;
-        } else if (d.target_ages === "Older Kids") {
-            counts["Older Kids"] += 1;
-        } else if (d.target_ages === "Teens") {
-            counts["Teens"] += 1;
-        } else if (d.target_ages === "Adults") {
-            counts["Adults"] += 1;
-        }
-    });
+    console.log(data); 
 
-    const pieData = [
-        { "target_ages": "Kids", "count": counts["Kids"] },
-        { "target_ages": "Older Kids", "count": counts["Older Kids"] },
-        { "target_ages": "Teens", "count": counts["Teens"] },
-        { "target_ages": "Adults", "count": counts["Adults"] }
-    ];
+    var select = d3.select("#countrySelect");
+
+    select.selectAll("option")
+           
+    var countries = ["Total",...new Set(data.map(d => d.principal_country))];
 
 
-    var width = 500;
-    var height = 400;
-    var radius = Math.min(width, height) / 2;
+    select.selectAll("option")
+        .data(countries)
+        .enter()
+        .append("option")
+        .text(d => d);
 
-    var svg = d3.select("#piechart")
-        .append("svg")
-        .attr("width", width)
-        .attr("height", height)
-        .append("g")
-        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+    
+        var width = 500;
+        var height = 400;
+        var radius = Math.min(width, height) / 2;
 
-    var color = d3.scaleSequential(d3.interpolateReds).domain([0,3]);
+        var svg = d3.select("#piechart")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .append("g")
+            .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+    
+
+    // Function to update the chart
+    function updateChart() {
+
+        svg.selectAll("*").remove();
+
+        var selectedCountry = d3.select("#countrySelect").property("value");
+        console.log(selectedCountry);
+
+        // Filter data for the selected country
+        var filteredData = selectedCountry === "Total" ? data : data.filter(d => d.principal_country === selectedCountry);
+
+        const counts = {
+            "Kids": 0,
+            "Older Kids": 0,
+            "Teens": 0,
+            "Adults": 0,
+        };
+
+        filteredData.forEach(function(d) {
+            if (d.target_ages === "Kids") {
+                counts["Kids"] += 1;
+            } else if (d.target_ages === "Older Kids") {
+                counts["Older Kids"] += 1;
+            } else if (d.target_ages === "Teens") {
+                counts["Teens"] += 1;
+            } else if (d.target_ages === "Adults") {
+                counts["Adults"] += 1;
+            }
+        });
+
+        const pieData = [
+            { "target_ages": "Kids", "count": counts["Kids"] },
+            { "target_ages": "Older Kids", "count": counts["Older Kids"] },
+            { "target_ages": "Teens", "count": counts["Teens"] },
+            { "target_ages": "Adults", "count": counts["Adults"] }
+        ];
+
+
+
+        var color = d3.scaleSequential(d3.interpolateReds).domain([0,3])
+
 
     // Map categories to numbers
     var categories = ["Kids", "Older Kids", "Teens", "Adults"];
@@ -140,8 +171,10 @@ d3.csv("Data/netflix_titles_cleaned.csv").then(function(data) {
                 return (midangle < Math.PI ? 'start' : 'end');
             })
             .style('fill', 'white');
-
-
-}).catch(function(error) {
-    console.log(error);
-});
+        }
+    updateChart();
+        // Add event listener for select element
+    select.on("change", updateChart);
+    }).catch(function(error) {
+            console.log(error);
+        });

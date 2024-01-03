@@ -150,7 +150,17 @@ body {
   border-color: white;
   border-top: 10%;
 }
+#countrySelect {
+  
+  position: fixed;
+  width: 250px;
+  height: 30px;
+  top: 1300px; 
+  left: 600px; 
+  z-index: 9999;
 
+
+}
 
 #buttonAdd{
   color: black;
