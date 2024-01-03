@@ -230,7 +230,22 @@ body {
 
 
 
-
+#Addingbutton{
+  color: black;
+  position: absolute;
+  top: 1600px; 
+  left: 100px; 
+  left: 5%;
+  font-size: 20px;
+}
+#Removebutton{
+  color: black;
+  position: absolute;
+  top: 1600px; 
+  left: 100px; 
+  left: 12%;
+  font-size: 20px;
+}
 
 
 
