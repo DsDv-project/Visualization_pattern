@@ -1,65 +1,18 @@
 // Define a row converter
-var rowConverter = function(d) {
-    return {
-        genres: String(d["genres"]),
-        title: String(d["title"]),
-        country: String(d["country"]) 
-    };
-}
+d3.csv("Data/netflix_titles_cleaned.csv").then(function(data) {
 
-d3.csv("Data/netflix_titles_cleaned.csv", rowConverter).then(function(data) {
-    var counts = {};
-    data.forEach(function(d) {
-        var genre = d.genres.trim();  
-        if (!counts[genre]) {
-            counts[genre] = 0;
-        }
-        counts[genre]++;
-    });
+    var select = d3.select("#countrySelect");
 
-    
+    select.selectAll("option")
+           
+    var countries = ["Total",...new Set(data.map(d => d.principal_country))];
 
 
-
-    var countsArray = Object.keys(counts).map(function(genre) {
-        return { genre: genre, count: counts[genre] };
-    });
-
-
-    var fullData = countsArray.sort(function(a, b) {
-        return b.count - a.count;
-    });
-    var num = 5;
-    var fullData = countsArray; 
-    countsArray = fullData.slice(0, num);
-    updateData();
-
-    const button = d3.select("#Addingbutton");
-    button.on("click", function() {
-        if (num < fullData.length) {
-            num++;
-            countsArray = fullData.slice(0, num);
-            updateData();
-          }
-        
-    });
-
-    const buttonRM = d3.select("#Removebutton");
-    buttonRM.on("click", function() {
-        if (num >1) {
-            num--;
-            countsArray = fullData.slice(0, num);
-            updateData();
-          }
-        
-    });
-
-
-
-
-    function updateData() {
-
-        d3.select("#graph4").select("svg").remove();
+    select.selectAll("option")
+        .data(countries)
+        .enter()
+        .append("option")
+        .text(d => d);
 
         var width = 550;
         var height = 350;
@@ -71,6 +24,65 @@ d3.csv("Data/netflix_titles_cleaned.csv", rowConverter).then(function(data) {
             .attr("height", height + margin.top + margin.bottom)
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        let num = 5;
+        let counts = {}; // Define counts globally
+
+        function calculateCounts() {
+            counts = {};
+            var selectedCountry = d3.select("#countrySelect").property("value");
+            var filteredData = selectedCountry === "Total" ? data : data.filter(d => d.principal_country === selectedCountry);
+
+            filteredData.forEach(function(d) {
+                var genre = d.genres.trim();  
+                if (!counts[genre]) {
+                    counts[genre] = 0;
+                }
+                counts[genre]++;
+            });
+        }
+
+        // Call calculateCounts initially to populate counts
+        calculateCounts();
+
+        const button = d3.select("#Addingbutton");
+        button.on("click", function() {
+            if (num < Object.keys(counts).length) {
+                num++;
+                updateData();
+            }
+        });
+
+        const buttonRM = d3.select("#Removebutton");
+        buttonRM.on("click", function() {
+            if (num > 1) {
+                num--;
+                updateData();
+            }
+        });
+
+    function updateData() {
+
+        svg.selectAll("*").remove();
+        var selectedCountry = d3.select("#countrySelect").property("value");
+
+        var filteredData = selectedCountry === "Total" ? data : data.filter(d => d.principal_country === selectedCountry);
+
+        var counts = {};
+        filteredData.forEach(function(d) {
+            var genre = d.genres.trim();  
+            if (!counts[genre]) {
+                counts[genre] = 0;
+            }
+            counts[genre]++;
+        });
+    
+        // Convert the counts object to an array and sort it
+        countsArray = Object.keys(counts).map(function(genre) {
+            return { genre: genre, count: counts[genre] };
+        }).sort(function(a, b) {
+            return b.count - a.count;
+        }).slice(0, num);
 
         var yScale = d3.scaleBand()
             .domain(countsArray .map(function(d) { return d.genre; }))
@@ -127,6 +139,14 @@ d3.csv("Data/netflix_titles_cleaned.csv", rowConverter).then(function(data) {
             .attr("fill", "red")  
             .style("font-size", "20px") 
             
-            .text("Top 10 genres");
+            .text("Kind of genres in Netflix");
         }
+
+    updateData();
+        // Add event listener for select element
+    window.addEventListener("countryChanged", function() {
+    updateData();
+});
+    }).catch(function(error) {
+            console.log(error);
 });

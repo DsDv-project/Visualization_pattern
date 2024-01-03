@@ -172,9 +172,15 @@ d3.csv("Data/netflix_titles_cleaned.csv").then(function(data) {
             })
             .style('fill', 'white');
         }
-    updateChart();
+        updateChart();
         // Add event listener for select element
-    select.on("change", updateChart);
+        select.on("change", function() {
+            updateChart();
+        
+            // Dispatch a custom event
+            var event = new CustomEvent("countryChanged");
+            window.dispatchEvent(event);
+        });
     }).catch(function(error) {
             console.log(error);
         });
