@@ -102,7 +102,7 @@ d3.csv("Data/netflix_titles_cleaned.csv").then(function(data) {
             .attr("transform", "translate(0," + height + ")")
             .call(d3.axisBottom(xScale).tickSizeOuter(0));
 
-        var color = d3.scaleOrdinal(d3.schemeSet2);
+            var color = d3.scaleSequential(d3.interpolateReds).domain([30,0])
 
         svg.selectAll(".bar")
             .data(countsArray)
@@ -112,7 +112,7 @@ d3.csv("Data/netflix_titles_cleaned.csv").then(function(data) {
             .attr("y", function(d) { return yScale(d.genre); })
             .attr("width", function(d) { return xScale(d.count); })
             .attr("height", yScale.bandwidth())
-            .attr("fill", function(d) { return color(d.genre); });
+            .attr("fill", function(d, i) { return color(i); });
 
             // Append value to the SVG in front of each bar
         svg.selectAll(".bar-label")  // Select based on the class "bar-label"

@@ -69,7 +69,7 @@ d3.csv("Data/netflix_titles_cleaned.csv").then(function(data) {
     svg.append("g")
         .call(d3.axisLeft(y).tickSizeOuter(0)); 
 
-    var color = d3.scaleOrdinal(d3.schemeCategory10);
+    var color = d3.scaleSequential(d3.interpolateReds).domain([10,0])
 
     svg.selectAll(".bar")
         .data(countsArray)
@@ -79,7 +79,7 @@ d3.csv("Data/netflix_titles_cleaned.csv").then(function(data) {
         .attr("width", x.bandwidth())
         .attr("y", function(d) { return y(d.count); })
         .attr("height", function(d) { return height - y(d.count); })
-        .attr("fill", function(d) { return color(d.age); });
+        .attr("fill", function(d, i) { return color(i); });
 
     // Add text labels above the bars
     svg.selectAll(".text")
