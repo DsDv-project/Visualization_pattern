@@ -171,6 +171,16 @@ d3.csv("Data/netflix_titles_cleaned.csv").then(function(data) {
                 return (midangle < Math.PI ? 'start' : 'end');
             })
             .style('fill', 'white');
+
+
+        svg.append("text")
+            .attr("x", 0)             
+            .attr("y", -height + 585)    
+            .attr("text-anchor", "middle")  
+            .style("font-size", "25px") 
+            .style("fill", "red")
+            .text("Age range of content");
+    
         }
         updateChart();
         // Add event listener for select element

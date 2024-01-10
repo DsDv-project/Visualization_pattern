@@ -102,15 +102,17 @@ d3.csv("Data/netflix_titles_cleaned.csv").then(function(data) {
             .attr("transform", "translate(0," + height + ")")
             .call(d3.axisBottom(xScale).tickSizeOuter(0));
 
-        svg.selectAll("rect")
+        var color = d3.scaleOrdinal(d3.schemeSet2);
+
+        svg.selectAll(".bar")
             .data(countsArray)
-            .enter()
-            .append("rect")
+            .enter().append("rect")
+            .attr("class", "bar")
+            .attr("x", function(d) { return xScale(0); })
             .attr("y", function(d) { return yScale(d.genre); })
-            .attr("x", 0)
-            .attr("height", yScale.bandwidth())
             .attr("width", function(d) { return xScale(d.count); })
-            .attr("fill", "red");
+            .attr("height", yScale.bandwidth())
+            .attr("fill", function(d) { return color(d.genre); });
 
             // Append value to the SVG in front of each bar
         svg.selectAll(".bar-label")  // Select based on the class "bar-label"

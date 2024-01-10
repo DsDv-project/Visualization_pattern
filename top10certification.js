@@ -69,16 +69,18 @@ d3.csv("Data/netflix_titles_cleaned.csv").then(function(data) {
     svg.append("g")
         .call(d3.axisLeft(y).tickSizeOuter(0)); 
 
+    var color = d3.scaleOrdinal(d3.schemeCategory10);
+
     svg.selectAll(".bar")
         .data(countsArray)
-        .enter()
-        .append("rect")
+        .enter().append("rect")
         .attr("class", "bar")
         .attr("x", function(d) { return x(d.age); })
         .attr("width", x.bandwidth())
         .attr("y", function(d) { return y(d.count); })
         .attr("height", function(d) { return height - y(d.count); })
-        .attr("fill", "red");
+        .attr("fill", function(d) { return color(d.age); });
+
     // Add text labels above the bars
     svg.selectAll(".text")
         .data(countsArray)
