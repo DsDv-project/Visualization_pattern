@@ -179,7 +179,7 @@ d3.csv("Data/netflix_titles_cleaned.csv").then(function(data) {
             .attr("text-anchor", "middle")  
             .style("font-size", "25px") 
             .style("fill", "red")
-            .text("Age range of content");
+            .text("Target age of viewer");
     
         }
         updateChart();
